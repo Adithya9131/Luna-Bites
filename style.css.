@@ -39,7 +39,8 @@ nav {
 }
 
 .logo img {
-    max-width: 150px; /* Adjust logo size */
+    max-width: 50px; /* Adjust logo size */
+    max-heiht: 50px;
     margin-bottom: 10px; /* Adds space between logo and links */
 }
 
