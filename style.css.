@@ -16,6 +16,21 @@ header {
     font-weight: bold;
 }
 
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the image horizontally */
+    justify-content: center; /* Ensures proper vertical alignment */
+    text-align: center;
+}
+
+.logo {
+    width: 150px;
+    border-radius: 50%;
+    margin: 10px auto; /* Centering for block elements */
+    display: block; /* Ensures it's treated as a block element */
+}
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -24,10 +39,6 @@ nav {
     background-color: #2C2C54;
 }
 
-.logo img {
-    width: 150px;
-    border-radius: 50%;
-}
 
 .nav-links {
     list-style: none;
