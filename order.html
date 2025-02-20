@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Online - Luna Bites</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #0b3d91, #1c1c3c);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .order-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+            text-align: left;
+        }
+        label {
+            font-size: 18px;
+            display: block;
+            margin: 10px 0;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        .disabled {
+            background-color: gray;
+            color: white;
+            cursor: not-allowed;
+        }
+        .btn {
+            display: block;
+            background-color: #f4a261; /* Yellowish-orange */
+            color: black;
+            padding: 12px 24px;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Order Online - Luna Bites</h1>
+    </header>
+
+    <div class="order-container">
+        <form id="orderForm">
+            <h2>Select Your Products</h2>
+            <label for="variant1">Chandrakanthalu - Classic (Min 0.5 KG)</label>
+            <input type="number" id="variant1" name="variant1" min="0.5" step="0.5" required> KG
+
+            <label for="variant2">Chandrakanthalu - Chocolate (Min 0.5 KG)</label>
+            <input type="number" id="variant2" name="variant2" min="0.5" step="0.5" required> KG
+
+            <label for="totalWeight">Total Order Weight (Min 1 KG Required)</label>
+            <input type="text" id="totalWeight" name="totalWeight" readonly> KG
+
+            <h2>Delivery Location</h2>
+            <label for="distance">Distance from Kozhikode (KM)</label>
+            <input type="number" id="distance" name="distance" min="0" required>
+
+            <label for="deliveryCharge">Delivery Charge</label>
+            <input type="text" id="deliveryCharge" name="deliveryCharge" readonly>
+
+            <h2>Payment Method</h2>
+            <label>
+                <input type="radio" name="payment" value="cod" checked> Cash on Delivery (COD)
+            </label>
+            <label>
+                <input type="radio" class="disabled" disabled> Credit Card (Currently Unavailable)
+            </label>
+            <label>
+                <input type="radio" class="disabled" disabled> Debit Card (Currently Unavailable)
+            </label>
+            <label>
+                <input type="radio" class="disabled" disabled> UPI Payments (Currently Unavailable)
+            </label>
+            <label>
+                <input type="radio" class="disabled" disabled> Wallet Payments (Currently Unavailable)
+            </label>
+
+            <button type="submit" class="btn">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("orderForm").addEventListener("input", function () {
+            let v1 = parseFloat(document.getElementById("variant1").value) || 0;
+            let v2 = parseFloat(document.getElementById("variant2").value) || 0;
+            let total = v1 + v2;
+
+            document.getElementById("totalWeight").value = total.toFixed(1);
+
+            let distance = parseInt(document.getElementById("distance").value) || 0;
+            let deliveryCharge = distance <= 500 ? 150 : 150 + (distance - 500) * 2;
+            document.getElementById("deliveryCharge").value = "₹" + deliveryCharge;
+
+            if (total < 1) {
+                document.querySelector(".btn").disabled = true;
+            } else {
+                document.querySelector(".btn").disabled = false;
+            }
+        });
+
+        document.getElementById("orderForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            alert("Order placed successfully! Cash on Delivery (COD) selected.");
+        });
+    </script>
+
+</body>
+</html>
