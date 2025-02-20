@@ -32,25 +32,32 @@ body {
 /* Navbar Styling */
 nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;  /* Stacks logo and links vertically */
+    align-items: center;  /* Centers everything */
     padding: 15px 20px;
     background-color: #2C2C54;
+}
+
+.logo img {
+    max-width: 150px; /* Adjust logo size */
+    margin-bottom: 10px; /* Adds space between logo and links */
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 20px; /* Adds space between links */
 }
 
+
+
 .nav-links li {
-    display: inline;
+     gap: 15px;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: white;
+    color: black;
     padding: 10px 15px;
     border-radius: 5px;
     background-color: #d2691e;
