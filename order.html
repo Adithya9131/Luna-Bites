@@ -9,21 +9,21 @@
             font-family: Arial, sans-serif;
             background: linear-gradient(to bottom, #0b3d91, #1c1c3c);
             color: white;
-            text-align: center;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
         header {
             background-color: rgba(0, 0, 0, 0.7);
-            padding: 22px;
+            padding: 20px;
             font-size: 24px;
             font-weight: bold;
         }
-        .order-container {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            margin: 20px auto;
+        .container {
             width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             text-align: left;
         }
@@ -32,27 +32,27 @@
             display: block;
             margin: 10px 0;
         }
-        select, input {
+        input {
             width: 100%;
             padding: 8px;
             margin: 5px 0;
         }
-        .disabled {
-            background-color: gray;
-            color: white;
-            cursor: not-allowed;
-        }
         .btn {
             display: block;
-            background-color: #f4a261; /* Yellowish-orange */
+            background-color: #f4a261;
             color: black;
             padding: 12px 24px;
             font-size: 18px;
             text-decoration: none;
             font-weight: bold;
             border-radius: 10px;
-            margin-top: 10px;
+            margin-top: 20px;
             text-align: center;
+            cursor: pointer;
+        }
+        .btn:disabled {
+            background-color: gray;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -62,68 +62,89 @@
         <h1>Order Online - Luna Bites</h1>
     </header>
 
-    <div class="order-container">
+    <div class="container">
         <form id="orderForm">
             <h2>Select Your Products</h2>
-            <label for="variant1">Chandrakanthalu - Classic (Min 0.5 KG)</label>
-            <input type="number" id="variant1" name="variant1" min="0.5" step="0.5" required> KG
 
-            <label for="variant2">Chandrakanthalu - Chocolate (Min 0.5 KG)</label>
-            <input type="number" id="variant2" name="variant2" min="0.5" step="0.5" required> KG
+            <label for="classic">Chandrakanthalu - Classic (₹380/KG, Min 0.5 KG if selected)</label>
+            <input type="number" id="classic" name="classic" min="0.5" step="0.5" value="0"> KG
+
+            <label for="chocolate">Chandrakanthalu - Chocolate (₹420/KG, Min 0.5 KG if selected)</label>
+            <input type="number" id="chocolate" name="chocolate" min="0.5" step="0.5" value="0"> KG
+
+            <label for="spiced">Chandrakanthalu - Spiced (₹420/KG, Min 0.5 KG if selected)</label>
+            <input type="number" id="spiced" name="spiced" min="0.5" step="0.5" value="0"> KG
 
             <label for="totalWeight">Total Order Weight (Min 1 KG Required)</label>
             <input type="text" id="totalWeight" name="totalWeight" readonly> KG
 
-            <h2>Delivery Location</h2>
-            <label for="distance">Distance from Kozhikode (KM)</label>
-            <input type="number" id="distance" name="distance" min="0" required>
+            <label for="totalAmount">Total Amount (Including Delivery)</label>
+            <input type="text" id="totalAmount" name="totalAmount" readonly>
+
+            <h2>Shipping Details</h2>
+            <label for="pincode">Enter Your Pincode</label>
+            <input type="number" id="pincode" name="pincode" required>
 
             <label for="deliveryCharge">Delivery Charge</label>
             <input type="text" id="deliveryCharge" name="deliveryCharge" readonly>
+
+            <label for="address">Shipping Address</label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+
+            <label for="deliveryDate">Estimated Delivery Date</label>
+            <input type="text" id="deliveryDate" name="deliveryDate" readonly>
 
             <h2>Payment Method</h2>
             <label>
                 <input type="radio" name="payment" value="cod" checked> Cash on Delivery (COD)
             </label>
             <label>
-                <input type="radio" class="disabled" disabled> Credit Card (Currently Unavailable)
+                <input type="radio" disabled> Credit Card (Currently Unavailable)
             </label>
             <label>
-                <input type="radio" class="disabled" disabled> Debit Card (Currently Unavailable)
+                <input type="radio" disabled> Debit Card (Currently Unavailable)
             </label>
             <label>
-                <input type="radio" class="disabled" disabled> UPI Payments (Currently Unavailable)
+                <input type="radio" disabled> UPI Payments (Currently Unavailable)
             </label>
             <label>
-                <input type="radio" class="disabled" disabled> Wallet Payments (Currently Unavailable)
+                <input type="radio" disabled> Wallet Payments (Currently Unavailable)
             </label>
 
-            <button type="submit" class="btn">Place Order</button>
+            <button type="submit" class="btn" disabled>Place Order</button>
         </form>
     </div>
 
     <script>
         document.getElementById("orderForm").addEventListener("input", function () {
-            let v1 = parseFloat(document.getElementById("variant1").value) || 0;
-            let v2 = parseFloat(document.getElementById("variant2").value) || 0;
-            let total = v1 + v2;
+            let classic = parseFloat(document.getElementById("classic").value) || 0;
+            let chocolate = parseFloat(document.getElementById("chocolate").value) || 0;
+            let spiced = parseFloat(document.getElementById("spiced").value) || 0;
+            let total = classic + chocolate + spiced;
 
             document.getElementById("totalWeight").value = total.toFixed(1);
 
-            let distance = parseInt(document.getElementById("distance").value) || 0;
-            let deliveryCharge = distance <= 500 ? 150 : 150 + (distance - 500) * 2;
+            let price = (classic * 380) + (chocolate * 420) + (spiced * 420);
+
+            let pincode = document.getElementById("pincode").value;
+            let deliveryCharge = pincode ? 150 : 0;
             document.getElementById("deliveryCharge").value = "₹" + deliveryCharge;
 
-            if (total < 1) {
-                document.querySelector(".btn").disabled = true;
-            } else {
-                document.querySelector(".btn").disabled = false;
-            }
+            document.getElementById("totalAmount").value = "₹" + (price + deliveryCharge);
+
+            let minDays = 4;
+            let maxDays = 15;
+            let deliveryDays = Math.floor(Math.random() * (maxDays - minDays + 1)) + minDays;
+            let today = new Date();
+            today.setDate(today.getDate() + deliveryDays);
+            document.getElementById("deliveryDate").value = today.toDateString();
+
+            document.querySelector(".btn").disabled = total < 1;
         });
 
         document.getElementById("orderForm").addEventListener("submit", function (event) {
             event.preventDefault();
-            alert("Order placed successfully! Cash on Delivery (COD) selected.");
+            alert("Order placed successfully! Estimated delivery: " + document.getElementById("deliveryDate").value);
         });
     </script>
 
