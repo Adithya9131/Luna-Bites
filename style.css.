@@ -32,8 +32,8 @@ body {
 /* Navbar Styling */
 nav {
     display: flex;
-   justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically (if needed) */
+    flex-direction: column; /* Stacks logo and menu vertically */
+    align-items: center; /* Centers all items horizontally */
     padding: 15px 20px;
     background-color: #2C2C54;
 }
