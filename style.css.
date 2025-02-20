@@ -39,6 +39,8 @@ nav {
 }
 
 .logo img {
+display: flex;
+    justify-content: center; /* Centers the image inside */
     margin-bottom: 10px; /* Adds space between logo and links */
 }
 
