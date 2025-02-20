@@ -29,7 +29,40 @@ body {
 }
 
 /* About Us Page Styling */
-.ceo-message {
+/* Navbar Styling */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #2C2C54;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #d2691e;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #a0522d;
+}
+
+/* About Us Page */
+.ceo-message, .legacy {
     text-align: center;
     max-width: 800px;
     margin: 50px auto;
@@ -39,47 +72,24 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.ceo-message h2 {
+.ceo-message h2, .legacy h2 {
     font-size: 28px;
     color: #d2691e;
     margin-bottom: 15px;
 }
 
-.ceo-message p {
+.ceo-message p, .legacy p {
     font-size: 18px;
     line-height: 1.6;
     color: #333;
     margin-bottom: 15px;
 }
 
-.ceo-message h3 {
-    font-size: 22px;
-    color: #a0522d;
-    margin-top: 20px;
-}
-
 .ceo-img {
-    width: 50px; /* Adjust the size of the CEO image */
+    width: 50px;
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
     display: block;
     margin: 0 auto 20px;
 }
-
-/* About Us Button */
-.about-btn {
-    display: inline-block;
-    background-color: #d2691e;
-    color: white;
-    padding: 12px 20px;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.about-btn:hover {
-    background-color: #a0522d;
-}
-
